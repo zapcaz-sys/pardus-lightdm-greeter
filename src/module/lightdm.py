@@ -288,7 +288,14 @@ lightdm = None
 def module_init():
     global lightdm
     lightdm = lightdm_class()
-    if get("allow-autologin", True, "lightdm"):
+    first_run = True
+    if "XDG_RUNTIME_DIR" in os.environ:
+        runtime = os.environ["XDG_RUNTIME_DIR"]
+        if os.path.isdir(runtime):
+            first_run = os.path.isfile(f"{runtime}/fistrun")
+        with open(f"{runtime}/fistrun", "w") as f:
+            f.write("1")
+    if get("allow-autologin", True, "lightdm") and first_run:
         try:
             lightdm.greeter.authenticate_autologin()
         except:
