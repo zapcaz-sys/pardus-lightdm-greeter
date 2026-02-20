@@ -183,15 +183,15 @@ class LoginWindow:
         self.o("ui_entry_new_password1").set_text("")
         self.o("ui_entry_new_password2").set_text("")
         self.o("ui_entry_password").set_text("")
+        self.o("ui_stack_login").set_visible_child_name("page_main")
         if len(message.strip()) > 0:
-            notify_widget = self.create_notify(message)
+            notify_widget = self.create_notify(message.strip())
             self.notifies.append(notify_widget)
             self.o("ui_icon_notify").set_from_icon_name("pardus-greeter-notify-new-symbolic", 0)
             self.o("ui_button_notify").show()
-        self.o("ui_box_notify").pack_start(notify_widget, False, False, 3)
-        self.o("ui_box_notify").reorder_child(notify_widget, 0)
-        self.o("ui_stack_login").set_visible_child_name("page_main")
-        self.o("ui_box_notify").show_all()
+            self.o("ui_box_notify").pack_start(notify_widget, False, False, 3)
+            self.o("ui_box_notify").reorder_child(notify_widget, 0)
+            self.o("ui_box_notify").show_all()
 
     def login_handler(self):
         if get("password-cache", True, "gtkwindow"):
