@@ -200,22 +200,17 @@
                                 <property name="orientation">vertical</property>
                                 <property name="spacing">5</property>
                                 <child>
-                                  <object class="GtkBox" id="ui_box_username">
+                                  <!-- n-columns=4 n-rows=2 -->
+                                  <object class="GtkGrid" id="ui_grid_login">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">False</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
+                                    <property name="halign">center</property>
+                                    <property name="valign">center</property>
+                                    <property name="row-spacing">3</property>
+                                    <property name="row-homogeneous">True</property>
                                     <child>
                                       <object class="GtkStack" id="ui_stack_username">
+                                        <property name="width-request">250</property>
                                         <property name="visible">True</property>
                                         <property name="can-focus">False</property>
                                         <property name="transition-duration">100</property>
@@ -262,9 +257,29 @@
                                         </child>
                                       </object>
                                       <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
+                                        <property name="left-attach">1</property>
+                                        <property name="top-attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="ui_entry_password">
+                                        <property name="visible">True</property>
+                                        <property name="can-focus">True</property>
+                                        <property name="valign">center</property>
+                                        <property name="visibility">False</property>
+                                        <property name="invisible-char">•</property>
+                                        <property name="caps-lock-warning">False</property>
+                                        <property name="placeholder-text" translatable="yes">Password</property>
+                                        <property name="input-purpose">password</property>
+                                        <property name="input-hints">GTK_INPUT_HINT_NO_SPELLCHECK | GTK_INPUT_HINT_NO_EMOJI | GTK_INPUT_HINT_NONE</property>
+                                        <style>
+                                          <class name="entry"/>
+                                          <class name="button_left"/>
+                                        </style>
+                                      </object>
+                                      <packing>
+                                        <property name="left-attach">1</property>
+                                        <property name="top-attach">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -287,66 +302,8 @@
                                         </style>
                                       </object>
                                       <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">False</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">3</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkBox" id="ui_box_password">
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">False</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="ui_entry_password">
-                                        <property name="width-request">31</property>
-                                        <property name="height-request">31</property>
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="valign">center</property>
-                                        <property name="visibility">False</property>
-                                        <property name="invisible-char">•</property>
-                                        <property name="caps-lock-warning">False</property>
-                                        <property name="placeholder-text" translatable="yes">Password</property>
-                                        <property name="input-purpose">password</property>
-                                        <property name="input-hints">GTK_INPUT_HINT_NO_SPELLCHECK | GTK_INPUT_HINT_NO_EMOJI | GTK_INPUT_HINT_NONE</property>
-                                        <style>
-                                          <class name="entry"/>
-                                          <class name="button_left"/>
-                                        </style>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
+                                        <property name="left-attach">2</property>
+                                        <property name="top-attach">0</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -369,27 +326,27 @@
                                         </style>
                                       </object>
                                       <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
+                                        <property name="left-attach">2</property>
+                                        <property name="top-attach">1</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">False</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">3</property>
-                                      </packing>
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
                                     </child>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
-                                    <property name="position">1</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>

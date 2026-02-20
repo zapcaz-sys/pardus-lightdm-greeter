@@ -431,11 +431,13 @@ class LoginWindow:
         self.o("ui_box_login").set_size_request(250*scale, -1)
         # notify panel
         self.o("ui_scrolled_notify").set_size_request(-1, self.height/2)
-        # login button & entry 128 x 31
-        for but in ["ui_button_login", "ui_box_username", "ui_entry_reset_username", "ui_entry_password",
-                    "ui_box_password",
-                    "ui_entry_new_password1", "ui_entry_new_password2", "ui_box_reset_buttons"]:
+        # login button 128 x 31
+        for but in ["ui_button_login", "ui_box_reset_buttons"]:
             self.o(but).set_size_request(128*scale, 31*scale)
+        # login entry 250 x 31
+        for but in ["ui_stack_username", "ui_entry_reset_username", "ui_entry_password",
+                    "ui_entry_new_password1", "ui_entry_new_password2"]:
+            self.o(but).set_size_request(250*scale, 31*scale)
         # user list
         self.o("ui_box_userlist_main").set_size_request(
             250*scale, self.height/3)
