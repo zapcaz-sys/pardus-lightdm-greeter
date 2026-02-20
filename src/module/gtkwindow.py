@@ -419,7 +419,7 @@ class LoginWindow:
             self.o(but).set_pixel_size(64*scale)
         # buttons 36 px
         for but in ["ui_icon_message", "ui_icon_wifi", "ui_icon_network", "ui_icon_powermenu",
-                    "ui_icon_options", "ui_icon_capslock", "ui_icon_numlock"]:
+                    "ui_icon_options", "ui_icon_capslock", "ui_icon_numlock", "ui_icon_notify"]:
             self.o(but).set_pixel_size(36*scale)
         # buttons 12px
         for but in ["ui_icon_userselect", "ui_icon_keyboard_layout", "ui_icon_default_session",
