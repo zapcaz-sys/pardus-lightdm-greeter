@@ -37,12 +37,29 @@ def update_network_icon():
     else:
         GLib.idle_add(loginwindow.o("ui_icon_network").set_from_icon_name, "network-transmit-receive-symbolic", Gtk.IconSize.DND)
 
-@asynchronous
-def update_network_icon_loop():
-    while True:
-        update_network_icon()
-        # Check every second. TODO: remove this and trace changes
-        time.sleep(1)
+
+pyroute_available = True
+try:
+    import pyroute2
+except:
+    pyroute_available = False
+
+if pyroute_available:
+    def _network_changes_cb(ipdb, msg, action):
+        if 'index' in msg:
+            update_network_icon()
+
+    def update_network_icon_handler():
+        ipdb = pyroute2.IPDB()
+        ipdb.register_callback(_network_changes_cb, mode='post')
+else:
+    @asynchronous
+    def update_network_icon_handler():
+        if get("network-check-loop", False, "network"):
+            while True:
+                update_network_icon()
+                # Check every second.
+                time.sleep(1)
 
 
 @asynchronous
@@ -77,7 +94,6 @@ def network_control_event():
 
 wmenu = None
 
-
 def module_init():
     global wmenu
     wifi_widget.set_scale(scale)
@@ -86,10 +102,7 @@ def module_init():
         return
     loginwindow.o("ui_button_network").connect(
         "clicked", _network_button_event)
-    if get("network-check-loop", False, "network"):
-        update_network_icon_loop()
-    else:
-        update_network_icon()
+    update_network_icon_handler()
     if not wifi_widget.wifi.available():
         loginwindow.o("ui_button_wifi").hide()
     else:
