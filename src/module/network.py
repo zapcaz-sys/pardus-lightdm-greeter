@@ -40,26 +40,26 @@ def update_network_icon():
 
 pyroute_available = True
 try:
-    import pyroute2
+    from pyroute2 import IPRoute
 except:
     pyroute_available = False
 
-if pyroute_available:
-    def _network_changes_cb(ipdb, msg, action):
-        if 'index' in msg:
-            GLib.idle_add(update_network_icon)
 
-    def update_network_icon_handler():
-        ipdb = pyroute2.IPDB()
-        ipdb.register_callback(_network_changes_cb, mode='post')
-else:
-    @asynchronous
-    def update_network_icon_handler():
-        if get("network-check-loop", False, "network"):
-            while True:
-                GLib.idle_add(update_network_icon)
-                # Check every second.
-                time.sleep(1)
+@asynchronous
+def update_network_icon_handler():
+    if pyroute_available:
+        ipr = IPRoute()
+        ipr.bind()
+        while True:
+            for message in ipr.get():
+                if "index" in message:
+                    GLib.idle_add(update_network_icon)
+
+    elif get("network-check-loop", False, "network"):
+        while True:
+            GLib.idle_add(update_network_icon)
+            # Check every second.
+            time.sleep(1)
 
 
 @asynchronous
