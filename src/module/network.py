@@ -31,11 +31,11 @@ def is_net_available():
 
 def update_network_icon():
     if not is_cable_available():
-        GLib.idle_add(loginwindow.o("ui_icon_network").set_from_icon_name, "network-error-symbolic", Gtk.IconSize.DND)
+        loginwindow.o("ui_icon_network").set_from_icon_name("network-error-symbolic", Gtk.IconSize.DND)
     elif not is_net_available():
-        GLib.idle_add(loginwindow.o("ui_icon_network").set_from_icon_name, "network-offline-symbolic", Gtk.IconSize.DND)
+        loginwindow.o("ui_icon_network").set_from_icon_name("network-offline-symbolic", Gtk.IconSize.DND)
     else:
-        GLib.idle_add(loginwindow.o("ui_icon_network").set_from_icon_name, "network-transmit-receive-symbolic", Gtk.IconSize.DND)
+        loginwindow.o("ui_icon_network").set_from_icon_name("network-transmit-receive-symbolic", Gtk.IconSize.DND)
 
 
 pyroute_available = True
@@ -47,7 +47,7 @@ except:
 if pyroute_available:
     def _network_changes_cb(ipdb, msg, action):
         if 'index' in msg:
-            update_network_icon()
+            GLib.idle_add(update_network_icon)
 
     def update_network_icon_handler():
         ipdb = pyroute2.IPDB()
@@ -57,7 +57,7 @@ else:
     def update_network_icon_handler():
         if get("network-check-loop", False, "network"):
             while True:
-                update_network_icon()
+                GLib.idle_add(update_network_icon)
                 # Check every second.
                 time.sleep(1)
 
