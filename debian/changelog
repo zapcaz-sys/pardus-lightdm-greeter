@@ -1,3 +1,16 @@
+pardus-lightdm-greeter (0.4.14) unstable; urgency=medium
+
+  [ Ali Riza KESKIN ]
+  * fixed screen resolution support added
+  * use pyroute2 for trace network event changes
+  * call GLib.idle_add location simplified
+  * use IPRoute module instead of IPDB
+  * use grid instead of box for login elements
+  * fix empty message notify issue
+  * notify button scale
+
+ -- Fatih Altun <fatih.altun@pardus.org.tr>  Fri, 27 Feb 2026 14:42:25 +0300
+
 pardus-lightdm-greeter (0.4.13) unstable; urgency=medium
 
   [ Ali Riza KESKIN ]
