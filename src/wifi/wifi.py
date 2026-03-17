@@ -41,8 +41,10 @@ class wifi_object:
         return str.lstrip()
 
     def is_saved(self):
-        return os.path.exists("/etc/NetworkManager/system-connections/{}.nmconnection".format(self.ssid))
-
+    safe_ssid = os.path.basename(self.ssid)
+    if not safe_ssid: return False
+    return os.path.exists("/etc/NetworkManager/system-connections/{}.nmconnection".format(safe_ssid))
+    
     def need_password(self):
         if self.is_saved():
             return False
@@ -52,19 +54,19 @@ class wifi_object:
 
     def connect(self, password=""):
         if not self.need_password():
-            return 0 == subprocess.run(["nmcli", "device","wifi", "connect", self.bssid]).returncode
+            return 0 == subprocess.run(["nmcli", "device","wifi", "connect","--", self.bssid]).returncode
         elif self.security in ["WPA2", "WPA1 WPA2"]:
-            return 0 == subprocess.run(["nmcli","device", "wifi", "connect", self.bssid, "password", password]).returncode
+            return 0 == subprocess.run(["nmcli","device", "wifi", "connect","--", self.bssid, "password", password]).returncode
         else:
             print("Failed to connect wifi", sys.stderr)
             return False
         return True
 
     def disconnect(self):
-        return 0 == subprocess.run(["nmcli","con", "down", self.ssid]).returncode
+        return 0 == subprocess.run(["nmcli","con", "down","--", self.ssid]).returncode
 
     def forget(self):
-        return 0 == subprocess.run(["nmcli","con", "delete", self.ssid]).returncode
+        return 0 == subprocess.run(["nmcli","con", "delete","--", self.ssid]).returncode
 
 
 def available():
